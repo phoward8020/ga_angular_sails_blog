@@ -1,4 +1,4 @@
-myBlogApp.controller('HomeCtrl',['$scope','$http','$modal',function($scope,$http,$modal){ 
+myBlogApp.controller('HomeCtrl',['$scope','$http','$modal','AlertService',function($scope,$http,$modal,AlertService){ 
 
     $scope.posts = [];
 

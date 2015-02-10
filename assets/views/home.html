@@ -7,7 +7,6 @@
         <div ng-repeat="post in posts">
             <h3>{{post.title}}</h3>
             <i>{{post.createdAt}}</i>
-            <p>{{post.body | limitTo: 200}}</p>
             <p>{{post.body | wordLimit: 50}}</p>
             <a href="/post/{{post.id}}">Read more</a>
             <button ng-click="deletePost($index)" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i></button>

@@ -1,4 +1,4 @@
-myBlogApp.controller('PostEditModalCtrl', ['$scope', '$http', '$modalInstance', 'post', function($scope, $http, $modalInstance, post){
+myBlogApp.controller('PostEditModalCtrl', ['$scope', '$http', '$modalInstance', 'post','AlertService', function($scope, $http, $modalInstance, post, AlertService){
 
   $scope.title = post.title
   $scope.body = post.body
@@ -10,13 +10,12 @@ myBlogApp.controller('PostEditModalCtrl', ['$scope', '$http', '$modalInstance', 
     }
     $http.put('/.api/post/'+post.id, postData)
      .success(function(data){
+        AlertService.add('success','The post has been updated.')
         $modalInstance.close(data);
      })
      .error(function(err){
         alert(err);
      })
-
-
   }
 
   $scope.cancel = function(){
