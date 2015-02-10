@@ -1,4 +1,4 @@
-myBlogApp.controller('HomeCtrl',['$scope','$http',function($scope,$http){ 
+myBlogApp.controller('HomeCtrl',['$scope','$http','$modal',function($scope,$http,$modal){ 
 
     $scope.posts = [];
 
@@ -20,7 +20,26 @@ myBlogApp.controller('HomeCtrl',['$scope','$http',function($scope,$http){
         }).error(function(err){
             alert(err);
         })
-        
     }
+    $scope.editPost = function(idx){
+        // console.log('editPost called on idx: ', idx);
+        var postIdx = idx;
+        $modal.open({
+            templateUrl:'/views/post/editModal.html',
+            controller:'PostEditModalCtrl',
+            resolve:{
+                post:function(){
+                    return $scope.posts[postIdx]
+                }
+            }
+        }).result.then(function(updatedPost){           // on save
+            $scope.posts[postIdx] = updatedPost;
+            // console.log('modal saved ', updatedPost);
+        }, function(){                                  // on cancel
+            alert('modal closed with cancel')
+        })
+
+    }
+
 
 }]);
