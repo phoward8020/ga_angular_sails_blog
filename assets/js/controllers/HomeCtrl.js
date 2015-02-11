@@ -1,12 +1,20 @@
-myBlogApp.controller('HomeCtrl',['$scope','$http','$modal','AlertService',function($scope,$http,$modal,AlertService){ 
+myBlogApp.controller('HomeCtrl',['$scope','$http','$modal','AlertService','$location',function($scope,$http,$modal,AlertService,$location){ 
 
     $scope.posts = [];
 
+    // console.log('location.search: ', $location.search());
+    var queryData = $location.search();
+    var searchTerm = queryData.q || false;
+
     var req = {
-        url:'/.api/post',
+        url:'/api/post',
         params:{
             'sort':'createdAt desc'
         }
+    };
+
+    if (searchTerm){
+        req.params.body = '%'+searchTerm+'%'
     }
 
     $http(req).success(function(data){
@@ -15,12 +23,13 @@ myBlogApp.controller('HomeCtrl',['$scope','$http','$modal','AlertService',functi
 
     $scope.deletePost = function(idx){
         var postId = $scope.posts[idx].id;
-        $http.delete('/.api/post/' + postId).success(function(data){
+        $http.delete('/api/post/' + postId).success(function(data){
             $scope.posts.splice(idx,1);
         }).error(function(err){
             alert(err);
         })
-    }
+    };
+
     $scope.editPost = function(idx){
         // console.log('editPost called on idx: ', idx);
         var postIdx = idx;

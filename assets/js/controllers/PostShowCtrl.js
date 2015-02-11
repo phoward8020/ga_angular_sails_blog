@@ -1,6 +1,6 @@
 myBlogApp.controller('PostShowCtrl',['$scope','$http','$routeParams','$location', '$modal', function($scope,$http,$routeParams,$location,$modal){
     var postId = $routeParams.id;
-    $http.get('/.api/post/'+postId).success(function(data){
+    $http.get('/api/post/'+postId).success(function(data){
         $scope.post=data;
     }).error(function(err){
         $location.path('/');
@@ -30,7 +30,7 @@ myBlogApp.controller('PostShowCtrl',['$scope','$http','$routeParams','$location'
         var commentData = {
             body:$scope.commentText
         };
-        $http.post('/.api/post/'+postId+'/comments', commentData)
+        $http.post('/api/post/'+postId+'/comments', commentData)
          .success(function(data){
             $scope.commentText="";
             $scope.post = data;

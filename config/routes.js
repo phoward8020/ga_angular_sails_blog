@@ -32,8 +32,20 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  '/': "PagesController.index",
-  "get /[^.?]+?":"PagesController.index"
+  // '/': "PagesController.index",
+  // "get /[^.?]+?":"PagesController.index"
+
+  '/':"PagesController.index",
+
+   "get *":{
+    controller:"PagesController",
+    action:"index",
+    skipAssets: true,
+    skipRegex: /^\/api\/.*$/
+  }
+
+  // Above setup via:
+  // http://stackoverflow.com/questions/19843946/sails-js-regex-routes
 
   /***************************************************************************
   *                                                                          *

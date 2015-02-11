@@ -19,6 +19,14 @@ myBlogApp.config(['$routeProvider','$locationProvider',function($routeProvider,$
         templateUrl:'/views/post/show.html',
         controller:'PostShowCtrl'
     })
+    .when('/about', {
+        templateUrl:'/views/about.html',
+        controller:'StaticCtrl'
+    })
+    .when('/faq', {
+        templateUrl:'/views/faq.html',
+        controller:'StaticCtrl'
+    })
 
 
 }])
