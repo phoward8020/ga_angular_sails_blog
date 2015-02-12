@@ -1,6 +1,11 @@
-myBlogApp.controller('HomeCtrl',['$scope','$http','$modal','AlertService','$location',function($scope,$http,$modal,AlertService,$location){ 
+myBlogApp.controller('HomeCtrl',['$scope','$http','$modal','AlertService','$location','UserService',function($scope,$http,$modal,AlertService,$location,UserService){ 
 
     $scope.posts = [];
+
+    $scope.UserService = UserService;
+    $scope.$watchCollection('UserService', function(){
+        $scope.currentUser=UserService.currentUser;
+    })
 
     // console.log('location.search: ', $location.search());
     var queryData = $location.search();

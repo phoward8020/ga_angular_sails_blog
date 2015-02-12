@@ -5,6 +5,8 @@
 * @docs        :: http://sailsjs.org/#!documentation/models
 */
 
+var bcrypt = require('bcrypt');
+
 module.exports = {
 
   attributes: {
@@ -16,13 +18,29 @@ module.exports = {
     },
     email:{
       type:'string',
-      require:true,
+      required:true,
       unique:true
     },
     password:{
       type:'string',
       required:true
+    },
+
+    toJSON: function(){
+      var userObj = this.toObject();
+      delete userObj.password;
+      return userObj;
     }
+  },
+
+  // http://sailsjs.org/#/documentation/concepts/ORM/Lifecyclecallbacks.html
+  beforeCreate:function(values, cb){
+    bcrypt.hash(values.password, 10, function(err, hash){
+      if(err) return cb(err);
+      values.password = hash;
+      cb();
+    })
   }
+
 };
 

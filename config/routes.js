@@ -32,12 +32,17 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  // '/': "PagesController.index",
-  // "get /[^.?]+?":"PagesController.index"
 
   '/':"PagesController.index",
 
-   "get *":{
+  'post   /api/auth':'AuthController.login',
+  'delete /api/auth':'AuthController.logout',
+  'get    /api/auth':'AuthController.check',
+
+  // '/': "PagesController.index",
+  // "get /[^.?]+?":"PagesController.index"
+
+  "get *":{
     controller:"PagesController",
     action:"index",
     skipAssets: true,

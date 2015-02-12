@@ -28,5 +28,10 @@ myBlogApp.config(['$routeProvider','$locationProvider',function($routeProvider,$
         controller:'StaticCtrl'
     })
 
+}]);
 
-}])
+myBlogApp.run(['UserService', function(UserService){
+    UserService.check(function(err,data){
+        console.log('check',err,data);
+    });
+}]);
